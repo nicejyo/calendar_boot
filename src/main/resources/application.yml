@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://${DB_HOST}:${DB_PORT}/{DB_NAME}?characterEncoding=UTF-8&serverTimezone=UTC
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: validate # 개발 단계에서 `update`, 배포 단계에서 `validate` 추천
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDBDialect 
+        #format_sql: true # SQL을 보기 좋게 출력
+        #show-sql: true      # 실행되는 SQL 로그 출력
+#jasypt:
+#  encryptor:
+#    bean: jasyptStringEncryptor
+#logging:
+#  level:
+#    org.hibernate.orm.jdbc.bind: TRACE  # 바인딩 파라미터 출력
