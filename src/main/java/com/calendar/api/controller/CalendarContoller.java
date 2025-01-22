@@ -60,30 +60,6 @@ public class CalendarContoller {
 
 	@PostMapping("/save")
 	public ResponseEntity<String> save(@RequestBody EventDto eventDto){
-        // 문자열 형식에 맞는 DateTimeFormatter 생성
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        // 변환할 문자열
-        String start_ = eventDto.getStart();
-        String end_ = eventDto.getEnd();
-
-    	System.out.printf("start_save == %s\n", start_);
-
-        // 문자열을 LocalDate로 변환
-        LocalDate _start = LocalDate.parse(start_, dateFormatter);
-        LocalDate _end = LocalDate.parse(end_, dateFormatter);
-
-        // LocalDate를 LocalDateTime으로 변환 (시간은 기본값인 00:00:00으로 설정)
-        LocalDateTime start = _start.atStartOfDay();		
-        LocalDateTime end = _end.atStartOfDay();		
-        
-		Event event = new Event();
-		
-		event.setId(eventDto.getId());
-		event.setTitle(eventDto.getTitle());
-		event.setStart(start);
-		event.setEnd(end);
-		event.setAllDay(eventDto.getAllDay());
 		
 		calendarService.save(eventDto);
 		

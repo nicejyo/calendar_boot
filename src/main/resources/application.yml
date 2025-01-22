@@ -4,6 +4,9 @@ spring:
     url: jdbc:mariadb://${DB_HOST}:${DB_PORT}/${DB_NAME}?characterEncoding=UTF-8&serverTimezone=UTC
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+    #url: jdbc:mariadb://localhost:3306/calendar
+    #username: root
+    #password: root-maria
   jpa:
     hibernate:
       ddl-auto: validate # 개발 단계에서 `update`, 배포 단계에서 `validate` 추천
