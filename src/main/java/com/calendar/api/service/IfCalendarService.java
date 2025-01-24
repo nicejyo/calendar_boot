@@ -8,7 +8,7 @@ import com.calendar.api.entity.Event;
 public interface IfCalendarService {
 	Long getId();
 
-	List<Event> getEvent(String day, String startOfNextMonth);
+	List<Event> getEvent(String day);
 
 	void save(EventDto eventDto);
 

@@ -15,7 +15,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 	Long getNextSequenceValue();
 	
 	
-  @Query(value="SELECT id,title,start,end,allDay,description FROM events WHERE start >= STR_TO_DATE(:start, '%Y-%m-%dT%H:%i') AND start < STR_TO_DATE(:last, '%Y-%m-%dT%H:%i')", nativeQuery = true)
+  @Query(value="SELECT id,title,start,end,allDay, description FROM events WHERE start >= STR_TO_DATE(:start, '%Y-%m-%dT%H:%i') AND start < STR_TO_DATE(:last, '%Y-%m-%dT%H:%i')", nativeQuery = true)
   List<Event> getEvent(@Param("start") String firstDayOfMonth, @Param("last") String startOfNextMonth);
 	 
 }

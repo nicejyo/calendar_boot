@@ -27,8 +27,19 @@ public class CalendarService implements IfCalendarService {
 	}
 
 	@Override
-	public List<Event> getEvent(String firstDayOfMonth, String startOfNextMonth) {
-		return eventRepository.getEvent(firstDayOfMonth, startOfNextMonth);
+	public List<Event> getEvent(String day) {
+        // 문자열 형식에 맞는 DateTimeFormatter 생성
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        // 문자열을 LocalDate로 변환
+        LocalDate day_ = LocalDate.parse(day, dateFormatter);
+
+        // LocalDate를 LocalDateTime으로 변환 (시간은 기본값인 00:00:00으로 설정)
+        LocalDateTime _day = day_.atStartOfDay();
+        LocalDateTime firstDayOfMonth = _day.withDayOfMonth(1);
+        LocalDateTime startOfNextMonth = firstDayOfMonth.plusMonths(1);
+
+        return eventRepository.getEvent(firstDayOfMonth.toString(), startOfNextMonth.toString());
 	}
 
 	@Override
@@ -73,24 +84,7 @@ public class CalendarService implements IfCalendarService {
         }else {
         	end = strToDate(end_);
         }
-/*        
-        if(start_.length() > 10) {
-        	OffsetDateTime start__ = OffsetDateTime.parse(start_);
-        	OffsetDateTime end__ = OffsetDateTime.parse(end_);
-            start = start__.toLocalDateTime();
-            end = end__.toLocalDateTime();
-        }else {
-            // 문자열 형식에 맞는 DateTimeFormatter 생성
-        	DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            
-            // 문자열을 LocalDate로 변환
-            LocalDate _start = LocalDate.parse(start_, dateFormatter);
-            LocalDate _end = LocalDate.parse(end_, dateFormatter);
-
-            start = _start.atStartOfDay();		
-            end = _end.atStartOfDay();		
-        }
-*/        
+        
 		Event event_ = new Event();
 		event_.setId(eventDto.getId());
 		event_.setTitle(eventDto.getTitle());

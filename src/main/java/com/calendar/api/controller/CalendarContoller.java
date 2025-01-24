@@ -38,19 +38,8 @@ public class CalendarContoller {
 
 	@GetMapping("/event/{day}")
 	public ResponseEntity<List<Event>> getEvents(@PathVariable("day") String day) {
-        // 문자열 형식에 맞는 DateTimeFormatter 생성
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        // 문자열을 LocalDate로 변환
-        LocalDate day_ = LocalDate.parse(day, dateFormatter);
         
-
-        // LocalDate를 LocalDateTime으로 변환 (시간은 기본값인 00:00:00으로 설정)
-        LocalDateTime _day = day_.atStartOfDay();
-        LocalDateTime firstDayOfMonth = _day.withDayOfMonth(1);
-        LocalDateTime startOfNextMonth = firstDayOfMonth.plusMonths(1);
-        
-        List<Event> event = calendarService.getEvent(firstDayOfMonth.toString(), startOfNextMonth.toString());
+        List<Event> event = calendarService.getEvent(day);
 		
 		if(event == null)
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND)  ;
